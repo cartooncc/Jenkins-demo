@@ -67,8 +67,21 @@ pipeline {
                 echo '验证测试环境健康状态'
                 sh '''
                     set -eux
-                    curl -fsSL "$STAGING_URL/actuator/health" || curl -fsSL "$STAGING_URL/health" || curl -fsSL "$STAGING_URL"
-                '''
+                                        # wait for service to be available with retries
+                    timeout=60
+                    interval=5
+                    elapsed=0
+                    until curl -fsS "$STAGING_URL/actuator/health" || curl -fsS "$STAGING_URL/health" || curl -fsS "$STAGING_URL"; do
+                        if [ "$elapsed" -ge "$timeout" ]; then
+                            echo "Service did not become available within ${timeout}s"
+                            exit 1
+                        fi
+                        sleep $interval
+                        elapsed=$((elapsed + interval))
+                        echo "Waiting for staging service... ${elapsed}s elapsed"
+                    done
+                    echo "Staging service is healthy"
+                    '''
             }
         }
 
