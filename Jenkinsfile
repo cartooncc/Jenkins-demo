@@ -114,9 +114,8 @@ pipeline {
     post {
         always {
             echo 'Pipeline finished.'
-            node (any) {
-                junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
-            }
+            junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
+            
         }
         success {
             echo '构建和部署成功'
