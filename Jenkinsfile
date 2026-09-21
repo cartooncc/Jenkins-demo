@@ -67,7 +67,7 @@ pipeline {
                 echo '验证测试环境健康状态'
                 sh '''
                 "$MAVEN_HOME"/bin/mvn -B spring-boot:run \
-                -Dspring-boot.run.arguments=--server.port=8082 
+                -Dspring-boot.run.arguments=--server.port=8082 &
                     '''
                 sh '''
                     sleep 40
