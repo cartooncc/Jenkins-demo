@@ -10,7 +10,7 @@ pipeline {
         STAGING_DEPLOY_DIR = "${env.WORKSPACE ?: pwd()}/apps/${APP_NAME}/staging"
         PROD_DEPLOY_DIR = "${env.WORKSPACE ?: pwd()}/apps/${APP_NAME}/prod"
         STAGING_URL = 'http://127.0.0.1:8081'
-        PROD_URL = 'http://127.0.0.1:8082'
+        PROD_URL = 'http://127.0.0.1:8081'
     }
 
     options {
@@ -66,7 +66,7 @@ pipeline {
             steps {
                 echo '验证测试环境健康状态'
                 sh '''
-                    curl 172.0.0.1:8080
+                    curl 172.0.0.1:8081
                     '''
             }
         }
