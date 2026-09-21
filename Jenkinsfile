@@ -7,8 +7,8 @@ pipeline {
         PATH = "${JAVA_HOME}/bin:${MAVEN_HOME}/bin:${env.PATH}"
         APP_NAME = 'jenkins-demo'
         ARTIFACT_PATH = 'target'
-        STAGING_DEPLOY_DIR = '/opt/apps/${APP_NAME}/staging'
-        PROD_DEPLOY_DIR = '/opt/apps/${APP_NAME}/prod'
+        STAGING_DEPLOY_DIR = "${env.WORKSPACE ?: pwd()}/apps/${APP_NAME}/staging"
+        PROD_DEPLOY_DIR = "${env.WORKSPACE ?: pwd()}/apps/${APP_NAME}/prod"
         STAGING_URL = 'http://127.0.0.1:8081'
         PROD_URL = 'http://127.0.0.1:8082'
     }
@@ -56,7 +56,7 @@ pipeline {
                 sh '''
                     set -eux
                     mkdir -p "$STAGING_DEPLOY_DIR"
-                    cp -f "$ARTIFACT_PATH"/*.jar "$STAGING_DEPLOY_DIR"/
+                    cp -f "$ARTIFACT_PATH"/*.war "$STAGING_DEPLOY_DIR"/
                     echo "Deploy artifact to staging: $STAGING_DEPLOY_DIR"
                 '''
             }
