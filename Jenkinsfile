@@ -31,21 +31,21 @@ pipeline {
         stage('Compile & Unit Test') {
             steps {
                 echo '编译并执行单元测试'
-                sh 'mvn -B -U clean test'
+                sh 'mvn -B  -f demo1/pom.xml -U clean test'
             }
         }
 
         stage('Integration Test') {
             steps {
                 echo '执行集成测试'
-                sh 'mvn -B verify -DskipTests=false'
+                sh 'mvn -B  -f demo1/pom.xml verify -DskipTests=false'
             }
         }
 
         stage('Package Artifact') {
             steps {
                 echo '打包应用'
-                sh 'mvn -B package -DskipTests'
+                sh 'mvn -B  -f demo1/pom.xml package -DskipTests'
                 archiveArtifacts artifacts: "${ARTIFACT_PATH}/*.jar", fingerprint: true
             }
         }
