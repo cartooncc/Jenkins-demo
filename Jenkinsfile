@@ -69,7 +69,7 @@ pipeline {
                     JENKINS_NODE_COOKIE=dontKillMe setsid \
                 "$MAVEN_HOME"/bin/mvn -B spring-boot:run \
                 -Dspring-boot.run.arguments=--server.port=8081 \
-                > "$STAGING_DEPLOY_DIR"/app.log 2>&1 < /dev/null &
+                > "$STAGING_DEPLOY_DIR"/app.log 2>&1 < /dev/null 
                     curl 127.0.0.1:8081
                     '''
             }
