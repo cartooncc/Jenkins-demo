@@ -46,7 +46,7 @@ pipeline {
             steps {
                 echo '打包应用'
                 sh ' mvn -B  package -DskipTests'
-                archiveArtifacts artifacts: "${ARTIFACT_PATH}/*.jar", fingerprint: true
+                archiveArtifacts artifacts: "${ARTIFACT_PATH}/*.war", fingerprint: true
             }
         }
 
