@@ -66,6 +66,7 @@ pipeline {
             steps {
                 echo '验证测试环境健康状态'
                 sh '''
+                    mvn -B spring-boot:run
                     curl 127.0.0.1:8081
                     '''
             }
