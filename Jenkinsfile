@@ -66,13 +66,14 @@ pipeline {
             steps {
                 echo '验证测试环境健康状态'
                 sh '''
-                "$MAVEN_HOME"/bin/mvn -B spring-boot:run
+                "$MAVEN_HOME"/bin/mvn -B spring-boot:run \
+                -Dspring-boot.run.arguments=--server.port=8082 
                     '''
                 sh '''
                     sleep 40
                 '''
                 sh '''
-                    curl 127.0.0.1:8081
+                    curl 127.0.0.1:8082
                 '''
             }
         }
